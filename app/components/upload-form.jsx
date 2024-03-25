@@ -1,7 +1,7 @@
 'use client';
 
 import { upload } from '@vercel/blob/client';
-import { uuid } from 'uuidv4';
+import { v4 as uuidv4 } from 'uuid';
 
 export default function UploadForm({ setIsDialogOpen, setFiles }) {
   const handleFileChange = async (event) => {
@@ -19,12 +19,16 @@ export default function UploadForm({ setIsDialogOpen, setFiles }) {
         handleUploadUrl: '/api/upload',
       });
 
-      const newFile = { name: file.name, url: newBlob.url, id: uuid() };
+      const newFile = { name: file.name, url: newBlob.url, id: uuidv4() };
       setFiles((prevFiles) => [...prevFiles, newFile]);
 
       const savedFiles = localStorage.getItem('files');
       const localStorageFiles = JSON.parse(savedFiles);
-      localStorage.setItem('files', JSON.stringify([...localStorageFiles, newFile]));
+      if (localStorageFiles) {
+        localStorage.setItem('files', JSON.stringify([...localStorageFiles, newFile]));
+      } else {
+        localStorage.setItem('files', JSON.stringify([newFile]));
+      }
     }
   };
 

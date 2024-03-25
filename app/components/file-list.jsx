@@ -32,9 +32,10 @@ export default function FileList({ files, onRename, onDelete, setSelectedFile })
       style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '25%' }}
     >
       <h1 style={{ marginBottom: '16px' }}>File List</h1>
-      {files.map((file, index) => (
+
+      {files.map((file) => (
         <div
-          key={index}
+          key={file.id}
           style={{
             display: 'flex',
             flexDirection: 'row',
