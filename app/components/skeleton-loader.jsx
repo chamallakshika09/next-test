@@ -1,5 +1,5 @@
 import React from 'react';
-import './Skeleton.css';
+import './skeleton.css';
 
 const SkeletonLoader = ({ count = 5 }) => {
   return (
