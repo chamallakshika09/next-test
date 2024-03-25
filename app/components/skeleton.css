@@ -1,0 +1,36 @@
+@keyframes shimmer {
+  0% {
+    background-position: -20rem 0;
+  }
+  100% {
+    background-position: 20rem 0;
+  }
+}
+
+.skeleton {
+  /* display: inline-block; */
+  height: 1rem;
+  width: 100%;
+  background: linear-gradient(to right, #eee 2%, #ddd 18%, #eee 33%);
+  background-size: 20rem 100%;
+  animation: shimmer 1.5s infinite linear forwards;
+}
+
+.skeleton-text {
+  margin: 0.5rem;
+  border-radius: 4px;
+}
+
+.skeleton-button {
+  width: 3rem;
+  margin: 0.5rem;
+  border-radius: 4px;
+}
+
+.skeleton-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+}
