@@ -18,7 +18,7 @@ This project is a simple file upload application that allows users to upload fil
 
 Ensure you have the following installed:
 
-- Node.js (version 14 or later recommended)
+- Node.js (version 18.17 or later recommended)
 - npm or yarn
 
 ### Installation
