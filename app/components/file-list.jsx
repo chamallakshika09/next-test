@@ -14,7 +14,20 @@ export default function FileList({ files, onRename, onDelete, setSelectedFile })
   }, [files]);
 
   if (isLoading) {
-    return <SkeletonLoader count={files ? files.length : 0} />;
+    return (
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          width: '25%',
+        }}
+      >
+        <h1 style={{ marginBottom: '16px' }}>File List</h1>
+        <SkeletonLoader count={files ? files.length : 0} />
+      </div>
+    );
   }
 
   const handleRename = (file) => {
