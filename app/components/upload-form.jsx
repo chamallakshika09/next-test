@@ -1,7 +1,7 @@
 'use client';
 
-import { upload } from '@vercel/blob/client';
 import { v4 as uuidv4 } from 'uuid';
+import { uploadFile } from './upload-file';
 
 export default function UploadForm({ setIsDialogOpen, setFiles }) {
   const handleFileChange = async (event) => {
@@ -14,20 +14,25 @@ export default function UploadForm({ setIsDialogOpen, setFiles }) {
     if (file.size > 5 * 1024 * 1024) {
       setIsDialogOpen(true);
     } else {
-      const newBlob = await upload(file.name, file, {
-        access: 'public',
-        handleUploadUrl: '/api/upload',
-      });
+      try {
+        const formData = new FormData();
+        formData.append('file', file);
 
-      const newFile = { name: file.name, url: newBlob.url, id: uuidv4() };
-      setFiles((prevFiles) => [...prevFiles, newFile]);
+        const newBlob = await uploadFile(formData);
 
-      const savedFiles = localStorage.getItem('files');
-      const localStorageFiles = JSON.parse(savedFiles);
-      if (localStorageFiles) {
-        localStorage.setItem('files', JSON.stringify([...localStorageFiles, newFile]));
-      } else {
-        localStorage.setItem('files', JSON.stringify([newFile]));
+        const newFile = { name: file.name, url: newBlob.url, id: uuidv4() };
+        setFiles((prevFiles) => [...prevFiles, newFile]);
+
+        const savedFiles = localStorage.getItem('files');
+        const localStorageFiles = JSON.parse(savedFiles);
+        if (localStorageFiles) {
+          localStorage.setItem('files', JSON.stringify([...localStorageFiles, newFile]));
+        } else {
+          localStorage.setItem('files', JSON.stringify([newFile]));
+        }
+      } catch (error) {
+        console.error(error);
+        alert('File upload failed');
       }
     }
   };
