@@ -14,7 +14,7 @@ export default function FileList({ files, onRename, onDelete, setSelectedFile })
   }, [files]);
 
   if (isLoading) {
-    return <SkeletonLoader count={5} />;
+    return <SkeletonLoader count={files ? files.length : 0} />;
   }
 
   const handleRename = (file) => {
